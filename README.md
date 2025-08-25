@@ -45,6 +45,11 @@ A API sobe em `https://localhost:7047` (ou porta do seu ambiente). Swagger dispo
 - `GET /api/posts/fetch` — Busca os posts do JSONPlaceholder e salva no banco, ignorando duplicados por Id.
 - `GET /api/posts` — Lista todos os posts do banco.
 
+### Documentação Swagger com comentários XML
+- O projeto gera o arquivo XML de documentação automaticamente (csproj configurado).
+- O Swagger inclui esses comentários na UI para endpoints e controllers.
+- Acesse `https://localhost:xxxxx/swagger` (porta conforme seu ambiente) e veja descrições e summaries.
+
 ## Migrações EF Core
 
 - Criar migração: `dotnet ef migrations add NomeDaMigracao`
@@ -63,22 +68,26 @@ A API sobe em `https://localhost:7047` (ou porta do seu ambiente). Swagger dispo
 ## Guia de arquitetura e manutenção
 
 Camadas:
+
 - Controllers: expõem endpoints HTTP e coordenam o fluxo.
 - Data: `AppDbContext` configura o EF Core e mapeia entidades.
 - Models: classes de domínio (por enquanto, `Post`).
 
 Pontos de extensão:
+
 - Adicionar validação: use DataAnnotations nos Models ou FluentValidation.
 - Paginação/filtros: exponha parâmetros em `GET /api/posts` e aplique no `DbSet`.
 - HttpClient: para produção, injete `IHttpClientFactory` via `AddHttpClient`.
 - Logs: use `ILogger<T>` nos controllers.
 
 Checklist de manutenção:
-1) Alterou o modelo? Crie migração e atualize o banco.
-2) Mudou a conexão? Atualize `appsettings.json` ou variáveis de ambiente.
-3) Novos endpoints? Documente no Swagger (XML comments) e README.
+
+1. Alterou o modelo? Crie migração e atualize o banco.
+2. Mudou a conexão? Atualize `appsettings.json` ou variáveis de ambiente.
+3. Novos endpoints? Documente no Swagger (XML comments) e README.
 
 ## Troubleshooting
+
 - Erro de porta HTTPS: defina a URL no `launchSettings.json` ou desabilite redireção durante testes locais.
 - Tabela já existe ao aplicar migração: drope o banco (`dotnet ef database drop`) ou crie baseline.
 - Conexão MySQL falha: verifique usuário/senha/host e se o MySQL está ouvindo em 3306.
