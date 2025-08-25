@@ -3,13 +3,14 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Conexão MySQL
+// Conexão MySQL: definida via appsettings.json (ConnectionStrings:DefaultConnection)
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
     ?? "server=localhost;database=testeApi;user=root;";
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
+// Adiciona Controllers e Swagger
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -22,6 +23,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// Middlewares padrão
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();

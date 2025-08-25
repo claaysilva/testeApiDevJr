@@ -60,6 +60,29 @@ A API sobe em `https://localhost:7047` (ou porta do seu ambiente). Swagger dispo
 - `Controllers/PostsController.cs` — Endpoints da API
 - `Migrations/` — Migrações do EF
 
+## Guia de arquitetura e manutenção
+
+Camadas:
+- Controllers: expõem endpoints HTTP e coordenam o fluxo.
+- Data: `AppDbContext` configura o EF Core e mapeia entidades.
+- Models: classes de domínio (por enquanto, `Post`).
+
+Pontos de extensão:
+- Adicionar validação: use DataAnnotations nos Models ou FluentValidation.
+- Paginação/filtros: exponha parâmetros em `GET /api/posts` e aplique no `DbSet`.
+- HttpClient: para produção, injete `IHttpClientFactory` via `AddHttpClient`.
+- Logs: use `ILogger<T>` nos controllers.
+
+Checklist de manutenção:
+1) Alterou o modelo? Crie migração e atualize o banco.
+2) Mudou a conexão? Atualize `appsettings.json` ou variáveis de ambiente.
+3) Novos endpoints? Documente no Swagger (XML comments) e README.
+
+## Troubleshooting
+- Erro de porta HTTPS: defina a URL no `launchSettings.json` ou desabilite redireção durante testes locais.
+- Tabela já existe ao aplicar migração: drope o banco (`dotnet ef database drop`) ou crie baseline.
+- Conexão MySQL falha: verifique usuário/senha/host e se o MySQL está ouvindo em 3306.
+
 ## Desenvolvimento
 
 Commits já versionados em `main`:
