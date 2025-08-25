@@ -11,7 +11,7 @@ using testeApi.Data;
 namespace testeApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250825181516_InitialCreate")]
+    [Migration("20250825181834_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
