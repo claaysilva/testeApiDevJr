@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Conexão MySQL
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-    ?? "server=localhost;database=jsonplaceholderdb;user=root;";
+    ?? "server=localhost;database=testeApi;user=root;";
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
