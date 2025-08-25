@@ -5,6 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace testeApi.Controllers
 {
+  /// <summary>
+  /// Controlador responsável por importar e listar Posts.
+  /// </summary>
   [ApiController]
   [Route("api/[controller]")]
   public class PostsController : ControllerBase
@@ -12,6 +15,10 @@ namespace testeApi.Controllers
     private readonly AppDbContext _context;
     private readonly HttpClient _httpClient;
 
+    /// <summary>
+    /// Injeta o DbContext. Um HttpClient simples é instanciado para consumo da API externa.
+    /// Em cenários avançados, prefira IHttpClientFactory para melhor resiliência.
+    /// </summary>
     public PostsController(AppDbContext context)
     {
       _context = context;
@@ -19,6 +26,9 @@ namespace testeApi.Controllers
     }
 
     // GET: api/posts/fetch
+    /// <summary>
+    /// Busca posts do JSONPlaceholder e salva no banco, evitando duplicidade por Id.
+    /// </summary>
     [HttpGet("fetch")]
     public async Task<IActionResult> FetchAndSavePosts()
     {
@@ -43,6 +53,9 @@ namespace testeApi.Controllers
     }
 
     // GET: api/posts
+    /// <summary>
+    /// Lista todos os posts persistidos no banco.
+    /// </summary>
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Post>>> GetPosts()
     {
