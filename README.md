@@ -2,6 +2,8 @@
 
 API .NET 8 que consome posts da API pública JSONPlaceholder e persiste em MySQL usando Entity Framework Core.
 
+> API externa utilizada: JSONPlaceholder — https://jsonplaceholder.typicode.com (endpoint: https://jsonplaceholder.typicode.com/posts)
+
 ## Tecnologias
 
 - .NET 8 (ASP.NET Core)
@@ -46,6 +48,7 @@ A API sobe em `https://localhost:7047` (ou porta do seu ambiente). Swagger dispo
 - `GET /api/posts` — Lista todos os posts do banco.
 
 ### Documentação Swagger com comentários XML
+
 - O projeto gera o arquivo XML de documentação automaticamente (csproj configurado).
 - O Swagger inclui esses comentários na UI para endpoints e controllers.
 - Acesse `https://localhost:xxxxx/swagger` (porta conforme seu ambiente) e veja descrições e summaries.
